@@ -1,0 +1,10 @@
+confluent-kafka
+protobuf
+grpcio-tools
+python-dotenv
+attrs
+httpx
+cachetools
+authlib
+googleapis-common-protos
+faker

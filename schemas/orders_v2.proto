@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package upvest;
+
+message Order {
+  string order_id = 1;
+  string product_id = 2;
+  int32 quantity = 3;
+  int64 order_timestamp = 4;
+
+  // New optional field (backward-compatible)
+  int32 unit_price = 5;  // optional field
+}

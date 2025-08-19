@@ -1,0 +1,9 @@
+syntax = "proto3";
+package upvest;
+
+message Product {
+  string product_id = 1;
+  string name = 2;
+  string category = 3;
+  int64 created_at = 4;
+}
