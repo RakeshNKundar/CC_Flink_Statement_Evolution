@@ -1,6 +1,6 @@
-# CC Flink statement lifecycle management
+# CC Flink Statement Lifecycle Management
 
-This github repo demonstrates a complete lifecycle using:
+This github repo demonstrates a complete Flink statement lifecycle using:
 - A **Python Kafka producer** sending messages in Protobuf to Confluent Cloud Kafka cluster.
 - **Terraform scripts** deploying Flink SQL statements using the **Confluent Terraform Provider**.
 - Schema evolution from v1 to v2 using Protobuf and Confluent Schema Registry.
@@ -19,7 +19,7 @@ Make sure you have the following installed:
 
 ---
 
-## 🔌 Step 1: Set up the local Environment
+## Step 1: Set up the local environment
 
 ### 1.1. Create a Virtual Environment and install python dependencies.
 
@@ -43,7 +43,7 @@ protoc --proto_path=. --python_out=. *.proto
 
 
 ## Step 2: Set up the Environment variables
-In the **.env** file add the endpoint and the credentials for both Kafka and Schema registry clusters.
+In the **.env** file add the endpoint and the credentials of both Kafka and Schema registry clusters.
 
 ```bash
 SCHEMA_REGISTRY_URL=""
@@ -54,7 +54,8 @@ KAFKA_API_KEY = ""
 KAFKA_API_SECRET = ""
 ```
 
-Similarly, Add the relevant configs in the terrafor.tfvars file under terraform directory
+Similarly, Add the relevant configs in the terraform.tfvars file under the terraform directory
+
 ```bash
 CC_CLOUD_API_KEY = ""
 CC_CLOUD_API_SECRET = ""
@@ -75,37 +76,39 @@ CC_USER_ID = ""
 CC_ORGANIZATION_ID = ""
 CC_FLINK_REST_ENDPOINT = ""
 ```
-## Step 3: Run the Producer application
+
+## Step 3: Run the python producer application
 
 ```bash
 python3 main.py
 ```
 
-## Step 4: Run terraform script to create Flink statements for data transformation
+## Step 4: Run the terraform script to create Flink statements for data transformations
 
 ```bash
 cd terraform
 
+# Initialize and apply the terraform setup
 terraform init
 terraform apply --auto-approve
 ```
 
 ## Step 5: Stop the running Flink statements before new schema version upgrade
-In the flink.tf file set the stopped=true to stop the running statements and run 
+In the **flink.tf** file set the **stopped=true** to stop the running statements and run 
 
 ```bash
 terraform apply --auto-approve
 ```
 
 ## Step 6: Upgrade the producer with a new schema and start producing events
-**main_v2.py** file registers a new V2 version schema to the Schema registry and produces events with matching new schema. 
+**main_v2.py** file registers a new **V2** version schema to the Schema registry and produces events with the matching new schema. 
 
 ```bash
 python3 main_v2.py
 ```
 
 ## Step 7: Upgrade the Flink statements through terraform
-Uncomment everything on **flink_v2.tf** file which contains the Flink statements to work with the new schemas and run 
+Uncomment everything on **flink_v2.tf** file which contains the **V2** Flink statements to work with the new schemas and run 
 
 ```bash
 terraform apply --auto-approve
