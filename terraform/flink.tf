@@ -32,7 +32,7 @@ resource "confluent_flink_statement" "up_products_materialized_insert" {
   statement_name = "up-products-materialized-insert"
   statement =  file("${path.module}/../flink_sql/insert_up_products_materialized.sql")
 
-  stopped = true
+  stopped = false
 
   depends_on = [ confluent_flink_statement.up_products_materialized_insert ]
 
@@ -56,7 +56,7 @@ resource "confluent_flink_statement" "up_orders_stream_insert" {
   statement_name = "up-orders-stream-insert"
   statement =  file("${path.module}/../flink_sql/insert_up_orders_stream.sql")
 
-  stopped = true
+  stopped = false
 
   depends_on = [ confluent_flink_statement.up_orders_stream_create ]
 
@@ -80,7 +80,7 @@ resource "confluent_flink_statement" "up_orders_more_than_10_quantities_insert" 
   statement_name ="up-orders-more-than-10-quantities-insert"
   statement =  file("${path.module}/../flink_sql/insert_up_orders_more_than_10_quantities.sql")
 
-  stopped = true
+  stopped = false
 
   depends_on = [ confluent_flink_statement.up_orders_more_than_10_quantities_create ]
 
@@ -104,7 +104,7 @@ resource "confluent_flink_statement" "orders_product_enriched_insert" {
   statement_name =  "orders-product-enriched-insert"
   statement =  file("${path.module}/../flink_sql/insert_orders_product_enriched.sql")
 
-  stopped = true
+  stopped = false
 
   depends_on = [ confluent_flink_statement.orders_product_enriched_create ]
 
